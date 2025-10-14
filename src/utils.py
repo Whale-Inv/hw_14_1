@@ -7,6 +7,9 @@ from src.product import Product
 
 
 def read_json(path: str) -> dict:
+    """
+        Функция принимает путь и возвращает данные из json-файла
+    """
     full_path: str = os.path.abspath(path)
     with open(full_path, "r", encoding="utf-8") as file:
         product_data: Any = json.load(file)
@@ -14,6 +17,9 @@ def read_json(path: str) -> dict:
 
 
 def create_objects_from_json(data: Any) -> list:
+    """
+        Функция принимает данные из json-файла и создает объекты класса
+    """
     categories: list = []
     for category in data:
         products: list = []
