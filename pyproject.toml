@@ -7,7 +7,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.13"
+pytest = "^8.4.2"
+coverage = "^7.10.7"
+pytest-cov = "^7.0.0"
 
+
+[tool.poetry.group.lint.dependencies]
+isort = "^7.0.0"
+black = "^25.9.0"
+mypy = "^1.18.2"
+flake8 = "^7.3.0"
 
 [build-system]
 requires = ["poetry-core"]
