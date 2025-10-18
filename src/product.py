@@ -43,7 +43,7 @@ class Product:
             self.__price = self.__price
             print("Цена не должна быть нулевая или отрицательная")
 
-        if value <= self.__price:
+        if 0 < value <= self.__price:
             confirm = input("Вы уверены что хотите снизить цену? y/n \n:")
             if confirm.lower() == "y":
                 self.__price = value
