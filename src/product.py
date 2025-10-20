@@ -1,4 +1,10 @@
+from typing import Any
+
+
 class Product:
+
+    _all_products: dict = {}
+
     name: str
     description: str
     price: float
@@ -7,5 +13,37 @@ class Product:
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
+
+        Product._all_products[name] = self
+
+    @classmethod
+    def new_product(cls, product_data: dict):
+
+        name = product_data["name"]
+        description = product_data["description"]
+        price = product_data["price"]
+        quantity = product_data["quantity"]
+
+        if name in cls._all_products:
+            existing_product = cls._all_products[name]
+            quantity += existing_product.quantity
+            if price < existing_product.price:
+                price = existing_product.price
+        return cls(name, description, price, quantity)
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value: Any):
+        if value <= 0:
+            self.__price = self.__price
+            print("Цена не должна быть нулевая или отрицательная")
+
+        if 0 < value <= self.__price:
+            confirm = input("Вы уверены что хотите снизить цену? y/n \n:")
+            if confirm.lower() == "y":
+                self.__price = value
