@@ -2,6 +2,7 @@ import pytest
 
 from src.category import Category
 from src.product import Product
+from src.productIter import ProductIter
 
 
 @pytest.fixture
@@ -36,3 +37,13 @@ def second_category():
 @pytest.fixture
 def product():
     return Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
+
+
+@pytest.fixture
+def product1():
+    return Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14)
+
+
+@pytest.fixture
+def product_filter(first_category):
+    return ProductIter(first_category)

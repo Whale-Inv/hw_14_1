@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from src.product import Product
 
 
@@ -47,3 +49,38 @@ def test_product_existing_higher_price():
     assert product12.description == "4096GB, Gray space"
     assert product12.price == 210000.0
     assert product12.quantity == 24
+
+
+def test_product_str(product):
+    assert str(product) == "Iphone 15, 210000.0 руб. Остаток: 8 шт."
+
+
+def test_product_add(product, product1):
+    assert product + product1 == 2114000.0
+
+
+class TestProductPriceSetter:
+    def setup_method(self):
+        # Создаем тестовый продукт с начальной ценой
+        self.product = Product(
+            name="Тестовый продукт", description="Описание", price=1000, quantity=10
+        )
+
+    @patch("builtins.input", return_value="y")
+    def test_set_lower_price_confirm_yes(self, mock_input):
+        # Проверяем снижение цены при подтверждении
+        self.product.price = 500
+        assert self.product.price == 500
+
+    @patch("builtins.input", return_value="n")
+    def test_set_lower_price_confirm_no(self, mock_input):
+        # Проверяем что цена не меняется при отказе
+        initial_price = self.product.price
+        self.product.price = 500
+        assert self.product.price == initial_price
+
+    def test_set_zero_price(self):
+        # Проверяем установку нулевой цены
+        initial_price = self.product.price
+        self.product.price = 0
+        assert self.product.price == initial_price
