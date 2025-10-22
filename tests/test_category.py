@@ -1,3 +1,6 @@
+import pytest
+
+
 def test_category_init(first_category, second_category):
     assert first_category.name == "Смартфоны"
     assert (
@@ -35,3 +38,20 @@ def test_category_product_list_setter(first_category, product):
     assert len(first_category.products_to_list) == 3
     first_category.add_product(product)
     assert len(first_category.products_to_list) == 4
+
+
+def test_category_str(first_category):
+    assert str(first_category) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_product_iter(product_filter):
+    result = product_filter.__iter__()
+    assert result is product_filter
+
+    assert product_filter.index == 0
+    assert next(product_filter).name == "Samsung Galaxy S23 Ultra"
+    assert next(product_filter).name == "Iphone 15"
+    assert next(product_filter).name == "Xiaomi Redmi Note 11"
+
+    with pytest.raises(StopIteration):
+        next(product_filter)
