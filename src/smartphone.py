@@ -2,7 +2,7 @@ from src.product import Product
 
 
 class Smartphone(Product):
-    """ Класс для добавления категории Смартфоны """
+    """ Класс для добавления продукта категории Смартфоны """
     def __init__(
         self, name, description, price, quantity, efficiency, model, memory, color
     ):
