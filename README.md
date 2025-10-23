@@ -15,6 +15,8 @@
 │   ├── _init_.py
 │   ├── category.py
 │   ├── lawngrass.py
+│   ├── order.py
+│   ├── print_mixin.py
 │   ├── product.py
 │   ├── productfilter.py
 │   ├── smartphone.py
@@ -24,6 +26,8 @@
     ├── conftest.py
     ├── test_category.py
     ├── test_lawngrass.py
+    ├── test_order.py
+    ├── test_print_mixin.py
     ├── test_product.py
     ├── test_smartphone.py
     └── test_utils.py
@@ -41,8 +45,12 @@
 - `Category`: для работы с категориями товаров.
 - `Product`: для описания отдельных товаров.
 - `Smartphone`: для добавления продукта категории Смартфоны
-- `Lawngrass`: для добавления продукта категории Трава газанная
+- `Lawngrass`: для добавления продукта категории Трава газонная
 - `ProductIter`: для вывода продуктов из списка продуктов
+- `BaseProduct`: абстрактный родительский класс для продуктов
+- `BaseOrder`: абстрактный родительский класс для классов `Category` и `Order` 
+- `Order`: класс, в котором находится ссылка на то, какой товар был куплен, количество купленного товара, а также итоговая стоимость.
+- `PrintMixin`:  печатает в консоль информацию о том, от какого класса и с какими параметрами был создан объект.
 2. **Функции:**
 - `read_json(path)`: чтение данных из JSON-файла.
 - `create_objects_from_json(data)`: создание объектов `Category` и `Product` на основе данных из JSON.

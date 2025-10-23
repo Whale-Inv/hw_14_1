@@ -1,7 +1,8 @@
+from src.order import BaseOrder
 from src.product import Product
 
 
-class Category:
+class Category(BaseOrder):
     name: str
     description: str
     products: list
@@ -9,8 +10,7 @@ class Category:
     product_count = 0
 
     def __init__(self, name, description, products=None):
-        self.name = name
-        self.description = description
+        super().__init__(name, description)
         self.__products = products if products else []
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
@@ -38,3 +38,11 @@ class Category:
     @property
     def products_to_list(self):
         return self.__products
+
+    def get_info(self) -> str:
+        return (
+            f"Категория: {self.name}\n"
+            f"Описание: {self.description}\n"
+            f"Дата создания: {self.created_at}\n"
+            f"Количество товаров: {len(self.__products)}"
+        )
