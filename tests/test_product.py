@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.product import Product
 
 
@@ -84,3 +86,8 @@ class TestProductPriceSetter:
         initial_price = self.product.price
         self.product.price = 0
         assert self.product.price == initial_price
+
+
+def test_product_add_error(product):
+    with pytest.raises(TypeError):
+        assert product + 1

@@ -55,3 +55,8 @@ def test_product_iter(product_filter):
 
     with pytest.raises(StopIteration):
         next(product_filter)
+
+
+def test_category_add_product_error(first_category):
+    with pytest.raises(TypeError):
+        assert first_category.add_product(1)
