@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from datetime import datetime
 
+from src.exceptions import ZeroProductsQuantity
+
 
 class BaseOrder(ABC):
     def __init__(self, name: str, description: str = ""):
@@ -22,8 +24,18 @@ class Order(BaseOrder):
     def __init__(self, product, quantity: int):
         super().__init__(f"Заказ {product.name}")
         self.product = product
-        self.quantity = quantity
-        self.total_cost = product.price * quantity
+        try:
+            self.quantity = quantity
+            if quantity == 0:
+                raise ZeroProductsQuantity(
+                    "Нельзя добавить товар с нулевым количеством"
+                )
+        except ZeroProductsQuantity as ex:
+            print(str(ex))
+        else:
+            self.total_cost = product.price * quantity
+        finally:
+            print("Обработка оформления заказа завершена")
 
     def __str__(self):
         return (

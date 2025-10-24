@@ -17,7 +17,10 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
         Product._all_products[name] = self
@@ -52,6 +55,9 @@ class Product(BaseProduct, PrintMixin):
 
     @price.setter
     def price(self, value: Any):
+        if value > self.__price:
+            self.__price = value
+
         if value <= 0:
             self.__price = self.__price
             print("Цена не должна быть нулевая или отрицательная")

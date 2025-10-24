@@ -101,3 +101,8 @@ def test_lawngrass_2():
 @pytest.fixture
 def test_order_init(product):
     return Order(product, 1)
+
+
+@pytest.fixture
+def test_category_without_products():
+    return Category(name="test", description="test category", products=[])

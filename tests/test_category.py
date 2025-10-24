@@ -69,3 +69,8 @@ def test_get_info(first_category):
         first_category.get_info()
         == f"Категория: Смартфоны\nОписание: Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни\nДата создания: {datetime.now().replace(microsecond=0)}\nКоличество товаров: 3"
     )
+
+
+def test_avg_price_products(first_category, test_category_without_products):
+    assert first_category.middle_price() == 140333.33
+    assert test_category_without_products.middle_price() == 0
