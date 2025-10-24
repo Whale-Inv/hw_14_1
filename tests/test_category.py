@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import pytest
 
 
@@ -5,8 +7,7 @@ def test_category_init(first_category, second_category):
     assert first_category.name == "Смартфоны"
     assert (
         first_category.description
-        == "Смартфоны, как средство не только коммуникации, \
-                    но и получения дополнительных функций для удобства жизни"
+        == "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
     )
     assert len(first_category.products_to_list) == 3
 
@@ -60,3 +61,11 @@ def test_product_iter(product_filter):
 def test_category_add_product_error(first_category):
     with pytest.raises(TypeError):
         assert first_category.add_product(1)
+
+
+def test_get_info(first_category):
+    print(first_category.get_info())
+    assert (
+        first_category.get_info()
+        == f"Категория: Смартфоны\nОписание: Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни\nДата создания: {datetime.now().replace(microsecond=0)}\nКоличество товаров: 3"
+    )
