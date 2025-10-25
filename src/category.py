@@ -1,3 +1,4 @@
+from src.exceptions import ZeroProductsQuantity
 from src.order import BaseOrder
 from src.product import Product
 
@@ -30,8 +31,19 @@ class Category(BaseOrder):
 
     def add_product(self, product: Product):
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
+            try:
+                if product.quantity == 0:
+                    raise ZeroProductsQuantity(
+                        "Нельзя добавить товар с нулевым количеством"
+                    )
+            except ZeroProductsQuantity as e:
+                print(str(e))
+            else:
+                self.__products.append(product)
+                Category.product_count += 1
+                print("Товар добавлен")
+            finally:
+                print("Обработка добавления товара завершена")
         else:
             raise TypeError
 
@@ -46,3 +58,13 @@ class Category(BaseOrder):
             f"Дата создания: {self.created_at}\n"
             f"Количество товаров: {len(self.__products)}"
         )
+
+    def middle_price(self):
+        try:
+            return round(
+                sum(product.price for product in self.__products)
+                / len(self.__products),
+                2,
+            )
+        except ZeroDivisionError:
+            return 0
